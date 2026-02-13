@@ -255,29 +255,38 @@ buy day     sell day       profit
 stock=[3,7,1,2,5,8,7,1]
 s2=[7,6,5,4,3,2,1]
 def max_profit(stock):
-    Total_profit=0
+    profit=0
     opr_count=0
     for i in range(0,len(stock)-1):
         for j in range(i+1,len(stock)):
             opr_count=opr_count+1
             if stock[i]<stock[j]:
                 current_profit=stock[j]-stock[i]
-                if current_profit>Total_profit:
-                    Total_profit=current_profit
+                if current_profit>profit:
+                    profit=current_profit
     # print(opr_count)
-    return Total_profit
-# print(max_profit(s2))
+    return profit
+# print(max_profit(stock))
 
 def total_profit(stock):
     present_profit=0
-    min_buy_price=stock[0]
     for i in range(1,len(stock)):
-            daily_profit=stock[i]-min_buy_price
-            if min_buy_price<stock[i]:
-                min_buy_price=stock[i]
-            if daily_profit>present_profit:
-                present_profit=daily_profit
+        if stock[i]>stock[i-1]:
+            present_profit=present_profit+(stock[i]-stock[i-1])
     return present_profit
 
-print(total_profit(s2))
+# print(total_profit(stock))
 
+def max_profit(stock):
+    overall_profit=0
+    curr_profit=0
+    for i in range(1,len(stock)):
+        if stock[i]>stock[i-1]:
+            curr_profit=curr_profit+(stock[i]-stock[i-1])
+        else:
+            if curr_profit>overall_profit:
+                overall_profit=curr_profit
+            curr_profit=0
+    return overall_profit
+
+print(max_profit(stock))
